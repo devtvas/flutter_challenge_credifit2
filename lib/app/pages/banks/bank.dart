@@ -226,15 +226,20 @@ class BankResultItem extends StatelessWidget {
   const BankResultItem({Key? key, required this.item}) : super(key: key);
 
   final BankModel item;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: ClipOval(
-          child: Image.network(item.owner.avatarUrl),
+          // child: Text(item.fullName),
+          child: item.owner.avatarUrl == null
+              ? Image.asset('assets/images/avatar.png')
+              : Image.network(item.owner.avatarUrl),
         ),
-        title: Text(item.fullName),
+        title:
+            item.fullName.isEmpty ? const Text("Empty") : Text(item.fullName),
         onTap: () {},
       ),
     );

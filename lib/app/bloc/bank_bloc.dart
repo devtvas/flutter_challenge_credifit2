@@ -34,7 +34,7 @@ class BankBloc extends Bloc<BankEvent, BankState> {
     } catch (error) {
       emit(error is SearchResultError
           ? BankStateError(error.message)
-          : BankStateError('something went wrong'));
+          : const BankStateError('something went wrong'));
     }
   }
 }

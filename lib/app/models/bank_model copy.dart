@@ -1,12 +1,21 @@
-class BankModel {
-  final String? id;
-  final String? name;
-  BankModel({this.id, this.name});
+import 'package:test/app/models/user_github_model.dart';
 
-  factory BankModel.fromJson(Map<String, dynamic> json) {
+class BankModel {
+  const BankModel({
+    required this.fullName,
+    required this.htmlUrl,
+    required this.owner,
+  });
+
+  final String fullName;
+  final String htmlUrl;
+  final GithubUser owner;
+
+  static BankModel fromJson(dynamic json) {
     return BankModel(
-      id: json['id'],
-      name: json['name'],
+      fullName: json['full_name'] as String,
+      htmlUrl: json['html_url'] as String,
+      owner: GithubUser.fromJson(json['owner']),
     );
   }
 }
