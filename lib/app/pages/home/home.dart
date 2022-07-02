@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:test/app/bloc/bank_bloc.dart';
-import 'package:test/app/bloc/bank_events.dart';
-import 'package:test/app/bloc/bank_state.dart';
-import 'package:test/app/pages/banks/details.dart';
+import 'package:test/app/bloc/bank/bank_bloc.dart';
+import 'package:test/app/bloc/bank/bank_events.dart';
+import 'package:test/app/bloc/bank/bank_state.dart';
 import 'package:test/app/models/bank_model.dart';
 
-class BankPage extends StatelessWidget {
-  BankPage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({Key? key}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -22,40 +21,6 @@ class BankPage extends StatelessWidget {
           BankBody(),
           BankBar(),
         ],
-      ),
-    );
-  }
-}
-
-class BankTheme extends StatelessWidget {
-  const BankTheme({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        begin: FractionalOffset.topCenter,
-        end: FractionalOffset.bottomCenter,
-        colors: [
-          Color.fromARGB(255, 253, 72, 72),
-          Color.fromARGB(255, 87, 97, 249),
-        ],
-        stops: [0.0, 1.0],
-      )),
-      child: Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: Container(
-          padding: const EdgeInsets.all(5.0),
-          child: Text(
-            'D E V T V A S',
-            style: textTheme.headline1!.copyWith(
-                color: Colors.grey.shade800.withOpacity(0.8),
-                fontWeight: FontWeight.bold,
-                fontSize: 50),
-          ),
-        ),
       ),
     );
   }
@@ -234,7 +199,7 @@ class BankResultItem extends StatelessWidget {
       child: ListTile(
         leading: ClipOval(
           // child: Text(item.fullName),
-          child: item.owner.avatarUrl == null
+          child: item.owner.avatarUrl.isEmpty
               ? Image.asset('assets/images/avatar.png')
               : Image.network(item.owner.avatarUrl),
         ),

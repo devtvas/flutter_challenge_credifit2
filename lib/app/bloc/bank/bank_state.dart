@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:test/app/models/bank_model.dart';
 
 abstract class BankState extends Equatable {

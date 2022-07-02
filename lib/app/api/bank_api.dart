@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:test/app/models/search_result.dart';
+import 'package:test/app/models/bank_result.dart';
 import 'package:test/app/models/search_result_error.dart';
 
 class BankAPI {
@@ -13,14 +13,14 @@ class BankAPI {
   final http.Client httpClient;
   static const path = "https://api.github.com/search/repositories?q=";
 
-  Future<SearchResult> search(String term) async {
+  Future<BankResult> getByString(String term) async {
     final response = await httpClient.get(Uri.parse("$baseUrl$term"));
     final results = json.decode(response.body);
 
     print(results);
 
     if (response.statusCode == 200) {
-      return SearchResult.fromJson(results);
+      return BankResult.fromJson(results);
     } else {
       throw SearchResultError.fromJson(results);
     }

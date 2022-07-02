@@ -1,11 +1,13 @@
-import 'package:test/app/models/search_result.dart';
+import 'package:test/app/models/bank_result.dart';
 
 class BankCache {
-  final _cache = <String, SearchResult>{};
+  final _cache = <String, BankResult>{};
 
-  SearchResult? get(String term) => _cache[term];
+  BankResult? getAll() => _cache[{}];
 
-  void set(String term, SearchResult result) => _cache[term] = result;
+  BankResult? get(String term) => _cache[term];
+
+  void set(String term, BankResult result) => _cache[term] = result;
 
   bool contains(String term) => _cache.containsKey(term);
 

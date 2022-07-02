@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:test/app/models/search_result.dart';
+import 'package:test/app/models/mock_result.dart';
 import 'package:test/app/models/search_result_error.dart';
 
 class MockAPI {
@@ -12,14 +12,14 @@ class MockAPI {
   final http.Client httpClient;
   static const path = 'assets/data/bank.json';
 
-  Future<SearchResult> search(String term) async {
+  Future<MockResult> getAll() async {
     final response = await httpClient.get(Uri.file(baseUrl, windows: false));
     final results = json.decode(response.body);
 
     print(results);
 
     if (response.statusCode == 200) {
-      return SearchResult.fromJson(results);
+      return MockResult.fromJson(results);
     } else {
       throw SearchResultError.fromJson(results);
     }

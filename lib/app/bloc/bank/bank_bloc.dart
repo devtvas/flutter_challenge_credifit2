@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:test/app/bloc/bank_events.dart';
-import 'package:test/app/bloc/bank_state.dart';
-import 'package:test/app/models/search_result_error.dart';
-import 'package:test/app/repositories/banks_repository.dart';
+import 'package:test/app/bloc/bank/bank_events.dart';
+import 'package:test/app/bloc/bank/bank_state.dart';
+import 'package:test/app/repositories/bank/bank_repository.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:test/app/models/search_result_error.dart';
 
 const _duration = Duration(milliseconds: 300);
 
@@ -12,11 +12,11 @@ EventTransformer<Event> debounce<Event>(Duration duration) {
 }
 
 class BankBloc extends Bloc<BankEvent, BankState> {
-  BankBloc({required this.bankRepository}) : super(BankStateEmpty()) {
+  final BankRepository? bankRepository;
+
+  BankBloc({this.bankRepository}) : super(BankStateEmpty()) {
     on<TextChanged>(_onTextChanged, transformer: debounce(_duration));
   }
-
-  final BankRepository bankRepository;
 
   void _onTextChanged(
     TextChanged event,
@@ -29,8 +29,8 @@ class BankBloc extends Bloc<BankEvent, BankState> {
     emit(BankStateLoading());
 
     try {
-      final results = await bankRepository.search(bankTerm);
-      emit(BankStateSuccess(results.items));
+      final results = await bankRepository!.getAll();
+      emit(BankStateSuccess(results!.items));
     } catch (error) {
       emit(error is SearchResultError
           ? BankStateError(error.message)
